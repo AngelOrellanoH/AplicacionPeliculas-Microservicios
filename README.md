@@ -45,7 +45,7 @@ La aplicación está organizada en múltiples microservicios independientes que 
 
 ---
 
-## 🔐 Seguridad y Autenticación
+## Seguridad y Autenticación
 
 - Autenticación basada en **JWT (JSON Web Token)**.
 - Tokens almacenados en **cookies HttpOnly**.
@@ -83,7 +83,7 @@ La aplicación está organizada en múltiples microservicios independientes que 
 
 ---
 
-## 📂 Estructura del Proyecto
+## Estructura del Proyecto
 
 ```text
 AplicacionPeliculas-Microservicios/
