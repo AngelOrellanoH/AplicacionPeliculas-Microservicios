@@ -1,0 +1,277 @@
+.actor-management-container {
+    width: 80%;
+    margin: 2rem auto;
+    font-family: Arial, sans-serif;
+}
+
+.actor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.actor-header h1 {
+    font-size: 2rem;
+    margin: 0;
+    color: #000;
+}
+
+.header-principal{
+    display: flex;
+    gap: 1rem;
+}
+
+.actor-count {
+    font-size: 0.85rem;
+    background-color: #f8f7f7;
+    border: 1px solid #dfdfdf;
+    color: #000000;
+    padding: 0.8rem 1rem;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+.actor-search-form {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.actor-search-form input {
+    flex: 1;
+    padding: 0.8rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.actor-search-form button,
+.btn-agregar{
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    background-color: #111;
+    color: white;
+    font-size: 0.85rem;
+    border: 1px solid #111;
+    cursor: pointer;
+}
+
+.actor-search-form button:hover,
+.btn-agregar:hover{
+    background-color: #474747;
+}
+
+.btn-agregar{
+    display: flex;
+    gap: 1rem;
+}
+
+.actor-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.actor-card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 1.2rem 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.actor-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.actor-card-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #000;
+}
+
+.actor-info {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.9rem;
+    color: #454545;
+    margin-top: 0.8rem;
+}
+
+.actor-info p {
+    margin: 0;
+    font-weight: bold;
+}
+
+.actor-info span {
+    font-weight: normal;
+    color: #7a7a7a;
+}
+
+.btn-delete,
+.btn-editar{
+    padding: 0.5rem 0.9rem;
+    font-size: 0.85rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #f8f8f8;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.btn-delete:hover{
+    background-color: #ffe0e0;
+    color: #dc3545;
+    border-color: #dc3545;
+    cursor: pointer;
+}
+
+.btn-editar:hover{
+    background-color: #e0f0ff;
+    color: #007bff;
+    border-color: #007bff;
+    cursor: pointer;
+}
+
+.header-options{
+    display: flex;
+    gap: 0.8rem;
+}
+
+.alert {
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 15px;
+    transition: opacity 0.5s ease;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    color: #842029;
+    border: 1px solid #f5c2c7;
+}
+
+.alert-success {
+    background-color: #d1e7dd;
+    color: #0f5132;
+    border: 1px solid #badbcc;
+}
+
+.actor-empty-msg {
+    color: #666666;
+    text-align: center;
+    margin-top: 2.5rem;
+}
+
+
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-form {
+    background-color: #fff;
+    padding: 2rem;
+    width: 100%;
+    max-width: 420px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    font-family: Arial, sans-serif;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.4rem;
+    color: #222;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+}
+
+.modal-body .form-group {
+    margin-bottom: 1.2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-body .form-group label {
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    color: #444;
+}
+
+.modal-body .form-group input {
+    padding: 0.7rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1.2rem;
+}
+
+.btn-cancelar {
+    background-color: white;
+    border: 1px solid #ccc;
+    color: #333;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.btn-cancelar:hover {
+    background-color: #f2f2f2;
+}
+
+.btn-crear {
+    background-color: #111;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.btn-crear:hover {
+    background-color: #444;
+}
+
+.hidden{
+    display: none;
+}

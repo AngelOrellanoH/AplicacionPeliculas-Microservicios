@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/base">
+<head>
+    <link rel="stylesheet" th:href="@{/css/criticas.css}"/>
+</head>
+<body>
+
+<section layout:fragment="content">
+    <div class="gestion-criticas-container">
+
+        <div class="header-top">
+            <h1>Gestión de Críticas</h1>
+            <span class="contador" th:text="${criticas.size()} + ' críticas'"></span>
+        </div>
+
+        <form class="form-busqueda" method="get" action="/admin/criticas">
+
+            <input type="text" name="q" placeholder="Buscar por usuario o contenido..." th:value="${query}" />
+
+            <button type="submit">Buscar</button>
+        </form>
+
+        <div class="alert alert-error" th:if="${mensajeError}" th:text="${mensajeError}"></div>
+        <div class="alert alert-success" th:if="${mensajeExito}" th:text="${mensajeExito}"></div>
+
+        <div th:if="${criticas.isEmpty()}">
+            <p class="noFound">No se encontraron criticas que coincidan con tu búsqueda.</p>
+        </div>
+
+        <div class="criticas-listado">
+            <div class="critica" th:each="critica : ${criticas}">
+                <div class="critica-encabezado">
+                    <div class="encabezado-info">
+                        <h3 th:text="${critica.pelicula}"></h3>
+                        <p>
+                            <span class="estrella"><i class="fa-solid fa-star"></i></span>
+                            <span th:text="${critica.nota + '/10'}"></span>
+                        </p>
+                    </div>
+                    <form th:action="@{/critica/eliminar/{id}(id=${critica.id})}" method="post">
+                        <button type="submit" class="btn-eliminar" title="Eliminar crítica">
+                            <i class="fa-solid fa-trash"></i> Eliminar
+                        </button>
+                    </form>
+                </div>
+
+                <div class="critica-info">
+                    <p>Usuario:  <span th:text="${critica.username}"></span></p>
+                    <p>Fecha:  <span th:text="${critica.fecha}"></span></p>
+                </div>
+
+                <p class="critica-texto" th:text="${critica.valoracion}"></p>
+            </div>
+        </div>
+
+    </div>
+
+    <script th:src="@{/js/criticas.js}"></script>
+
+</section>
+</body>
+</html>
+

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      lang="es"
+>
+
+<head>
+    <meta charset="UTF-8">
+    <title>MovieWiki</title>
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<header class="header">
+    <div class="logo">
+        <a href="/">
+            <i class="fa-solid fa-film"></i>
+            <span class="text">MovieWiki</span>
+        </a>
+    </div>
+    <div class="menu">
+        <div th:if="${isAuthenticated}">
+            <span class="menuTextUser">Hola, <span th:text="${username}">Usuario</span></span>
+
+            <a th:if="${isAdmin}" href="/admin" class="btnLogin">
+                <i class="fa fa-cog"></i> Admin
+            </a>
+            <a th:unless="${isAdmin}" href="/perfil" class="btnLogin">
+                <i class="fa fa-user"></i> Mi Perfil
+            </a>
+
+            <form method="post" action="/logout" style="display:inline">
+                <button type="submit" class="btnLogin">
+                    <i class="fa fa-sign-out-alt"></i> Salir
+                </button>
+            </form>
+        </div>
+
+        <div th:unless="${isAuthenticated}">
+            <a href="/login" class="btnLogin">Iniciar Sesión</a>
+            <a href="/registro" class="btnRegistro">Registrarse</a>
+        </div>
+    </div>
+</header>
+
+<main class="main-content">
+    <section layout:fragment="content">
+        <!-- Aquí se inyecta el contenido -->
+    </section>
+</main>
+
+<footer class="footer">
+    <p>&copy; 2025 MovieWiki - Frameworks Backend y Microservicios</p>
+</footer>
+
+</body>
+</html>

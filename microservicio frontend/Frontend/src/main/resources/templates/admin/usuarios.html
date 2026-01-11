@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/base">
+<head>
+    <link rel="stylesheet" th:href="@{/css/usuarios.css}" />
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="gestion-criticas-container">
+        <div class="header-top">
+            <h1>Gestión de Usuarios</h1>
+            <span class="contador" th:text="${usuarios.size()} + ' usuarios'"></span>
+        </div>
+
+        <form class="form-busqueda" method="get" action="/admin/usuarios">
+            <input type="text" name="q" placeholder="Buscar usuarios por username o correo..." th:value="${query}" />
+            <select name="rol">
+                <option value="" th:selected="${rol == ''}">Todos los roles</option>
+                <option value="ROLE_ADMIN" th:selected="${rol == 'ROLE_ADMIN'}">Administrador</option>
+                <option value="ROLE_USER" th:selected="${rol == 'ROLE_USER'}">Usuario</option>
+            </select>
+            <button type="submit">Buscar</button>
+        </form>
+
+        <div class="alert alert-error" th:if="${mensajeError}" th:text="${mensajeError}"></div>
+        <div class="alert alert-success" th:if="${mensajeExito}" th:text="${mensajeExito}"></div>
+
+        <div class="criticas-listado">
+            <div class="critica usuario" th:each="usuario : ${usuarios}">
+                <div class="critica-encabezado">
+                    <div class="encabezado-info">
+                        <i th:if="${!usuario.roles.contains('ROLE_ADMIN')}" class="fa-solid fa-user"></i>
+                        <i th:if="${usuario.roles.contains('ROLE_ADMIN')}" class="fa-solid fa-shield-halved"></i>
+                        <div class="encabezado-info-text">
+                            <h3 th:text="${usuario.username}"></h3>
+                            <p th:text="${usuario.correo}"></p>
+                        </div>
+                    </div>
+                    <div class="acciones">
+                        <button class="btn-editar" type="button" th:attr="data-username=${usuario.username}">
+                            <i class="fa-solid fa-pen-to-square"></i> Editar
+                        </button>
+                        <form th:action="@{/usuario/eliminar/{username}(username=${usuario.username})}" method="post">
+                            <button class="btn-eliminar" type="submit">
+                                <i class="fa-solid fa-trash"></i> Eliminar
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Vista normal -->
+                <div class="usuario-info" th:attr="data-username=${usuario.username}">
+                    <p>Estado: <span th:text="${usuario.enabled ? 'Activo' : 'Inactivo'}" class="estado-texto"></span></p>
+                    <p>Rol: <span th:text="${usuario.roles.contains('ROLE_ADMIN') ? 'Admin' : 'Usuario'}" class="rol-texto"></span></p>
+                </div>
+
+                <!-- Vista edición -->
+                <form th:action="@{/usuario/editar/{username}(username=${usuario.username})}" method="post" class="form-edicion hidden" th:attr="data-username=${usuario.username}">
+
+                    <div class="form-edicion-selects">
+                        <p>Estado:
+                            <select name="enabled">
+                                <option value="true" th:selected="${usuario.enabled}">Activo</option>
+                                <option value="false" th:selected="${!usuario.enabled}">Inactivo</option>
+                            </select>
+                        </p>
+
+                        <p>Rol:
+                            <select name="role">
+                                <option value="ROLE_USER" th:selected="${!usuario.roles.contains('ROLE_ADMIN')}">Usuario</option>
+                                <option value="ROLE_ADMIN" th:selected="${usuario.roles.contains('ROLE_ADMIN')}">Admin</option>
+                            </select>
+                        </p>
+                    </div>
+
+
+                    <div class="edicion-buttons">
+                        <button type="submit">Guardar</button>
+                        <button type="button" class="btn-cancelar" th:attr="data-username=${usuario.username}">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script th:src="@{/js/usuarios.js}"></script>
+</section>
+</body>
+</html>

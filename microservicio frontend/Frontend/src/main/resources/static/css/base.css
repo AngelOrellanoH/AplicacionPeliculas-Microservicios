@@ -1,0 +1,88 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.header {
+    background-color: white;
+    padding: 1rem 1rem;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header .logo {
+    display: flex;
+    align-items: center;
+}
+
+.header .logo> a{
+    text-decoration: none;
+    color: black;
+}
+
+.header .icon {
+    font-size: 1rem;
+    margin-right: 0.75rem;
+}
+
+.menu{
+    display: flex;
+    gap: 1rem;
+    align-content: center;
+}
+.btnRegistro {
+    background-color: #111;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    text-decoration: none;
+}
+
+.btnLogin {
+    border: none;
+    background: #ffffff;
+    margin-left: 15px;
+    color: black;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.menuTextUser{
+    margin-left: 15px;
+    color: black;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+}
+
+.btnRegistro:hover {
+    background-color: #2f2e2e;
+    cursor: pointer;
+}
+
+.btnLogin:hover {
+    background: #e3e1e1;
+    cursor: pointer;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+}
+
+.footer {
+    background-color: #000;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    margin-top: 40px;
+}

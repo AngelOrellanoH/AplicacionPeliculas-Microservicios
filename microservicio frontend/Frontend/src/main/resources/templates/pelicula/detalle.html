@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/base">
+<head>
+    <link rel="stylesheet" th:href="@{/css/detalle.css}">
+</head>
+<body>
+<section layout:fragment="content" class="detalle-container">
+
+    <a href="/" class="volver-btn"><i class="fa-solid fa-arrow-left"></i> Volver al inicio</a>
+
+
+    <div class="detalle-contenido">
+        <div class="detalle-texto">
+            <h1 th:text="${pelicula.titulo}"></h1>
+
+
+            <div class="info-basica">
+                <div><i class="fa-solid fa-calendar-days"></i> <span th:text="${pelicula.anio}"></span></div>
+                <div><i class="fa-solid fa-clock"></i> <span th:text="${pelicula.duracion + ' minutos'}"></span></div>
+                <div><i class="fa-solid fa-flag"></i> <span th:text="${pelicula.pais}"></span></div>
+                <div class="genero"><i class="fa-solid fa-film"></i> <span th:text="${pelicula.genero}"></span></div>
+            </div>
+
+            <div class="calificacion">
+                <i class="fa-solid fa-star estrella"></i>
+                <span class="promedio" th:text="${resumenCritica != null ? #numbers.formatDecimal(resumenCritica.notaMedia, 1, 1) : '0.0'}">0.0</span>
+                <span th:text="'(' + ${resumenCritica != null ?  resumenCritica.cantidadCriticas : '0'} + ' críticas)'"></span>
+            </div>
+
+
+            <div class="informacionTexto">
+                <h2>Sinopsis</h2>
+                <p th:text="${pelicula.sinopsis}"></p>
+
+                <h2>Información técnica</h2>
+                <div class="informacionTecnica">
+                    <p><strong>Director:</strong> <span th:text="${pelicula.direccion}"></span></p>
+                    <p><strong>Año:</strong> <span th:text="${pelicula.anio}"></span></p>
+                    <p><strong>País:</strong> <span th:text="${pelicula.pais}"></span></p>
+                    <p><strong>Duración:</strong> <span th:text="${pelicula.duracion + ' minutos'}"></span></p>
+                </div>
+            </div>
+        </div>
+        <div class="detalle-portada">
+            <img th:src="@{${pelicula.imagenPortada}}" alt="Portada de la película" />
+        </div>
+    </div>
+
+
+    <div class="reparto">
+        <h2>Reparto</h2>
+        <div class="reparto-grid">
+            <div class="actor" th:each="actor : ${pelicula.actores}">
+                <i class="fa-solid fa-user"></i>
+                <span th:text="${actor.nombre}"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="criticas" >
+        <h2>Críticas</h2>
+
+        <div class="form-critica" th:if="${isAuthenticated} and not ${isAdmin}">
+            <h3>Escribir crítica</h3>
+
+            <form th:action="@{/critica}" method="post" th:object="${critica}">
+                <input type="hidden" th:field="*{idPelicula}" />
+
+
+                <label for="nota">Calificación:</label>
+                <select id="nota" th:field="*{nota}" required>
+                    <option value="" disabled selected>1-10</option>
+                    <option th:each="i : ${#numbers.sequence(1,10)}"
+                            th:value="${i}" th:text="${i}"></option>
+                </select>
+
+                <textarea th:field="*{valoracion}" placeholder="Escribe tu crítica aquí..." rows="4" required></textarea>
+
+                <button type="submit">Publicar crítica</button>
+            </form>
+
+            <p th:if="${mensajeError}" class="mensaje-error" th:text="${mensajeError}"></p>
+            <p th:if="${mensajeExito}" class="mensaje-exito" th:text="${mensajeExito}"></p>
+        </div>
+
+        <div class="critica" th:each="critica : ${criticas}" >
+            <div class="critica-header">
+                <div class="critica-user">
+                    <strong th:text="${critica.username}"></strong>
+                    <div class="critica-nota">
+                        <i class="fa-solid fa-star estrella"></i>
+                        <span th:text="${critica.nota + '/10'}"></span>
+                    </div>
+                </div>
+                <p class="fecha" th:text="${critica.fecha}"></p>
+            </div>
+
+            <p th:text="${critica.valoracion}"></p>
+
+        </div>
+    </div>
+</section>
+
+
+</body>
+</html>

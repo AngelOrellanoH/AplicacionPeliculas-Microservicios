@@ -1,0 +1,350 @@
+.pelicula-management-container {
+    width: 80%;
+    margin: 2rem auto;
+    font-family: Arial, sans-serif;
+}
+
+.pelicula-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.pelicula-header h1 {
+    font-size: 2rem;
+    margin: 0;
+    color: #000;
+}
+
+.header-principal {
+    display: flex;
+    gap: 1rem;
+}
+
+.pelicula-count {
+    font-size: 0.85rem;
+    background-color: #f8f7f7;
+    border: 1px solid #dfdfdf;
+    color: #000000;
+    padding: 0.8rem 1rem;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+.pelicula-search-form {
+    display: flex;
+    width: 100%;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.pelicula-search-form input{
+    flex: 2;
+}
+
+.pelicula-search-form select {
+    flex: 1;
+}
+
+
+.pelicula-search-form input,
+.pelicula-search-form select {
+    padding: 0.8rem 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.pelicula-search-form button,
+.btn-agregar {
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    background-color: #111;
+    color: white;
+    font-size: 0.85rem;
+    border: 1px solid #111;
+    cursor: pointer;
+}
+
+.pelicula-search-form button:hover,
+.btn-agregar:hover {
+    background-color: #474747;
+}
+
+.pelicula-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.pelicula-card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 1.5rem 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.pelicula-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
+}
+
+.pelicula-card-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #000;
+}
+
+.card-header-title{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.card-header-title > p {
+    margin: 0;
+    font-size: 0.8rem;
+    padding: 0.3rem 0.5rem;
+    color: #555;
+}
+
+.pelicula-info p {
+    margin: 0.3rem 0;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.pelicula-info{
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.pelicula-info > p:last-child{
+    line-height: 1.5rem;
+}
+
+.btn-delete,
+.btn-editar {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.85rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background-color: #f8f8f8;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.btn-delete:hover{
+    background-color: #ffe0e0;
+    color: #dc3545;
+    border-color: #dc3545;
+    cursor: pointer;
+}
+
+.btn-editar:hover {
+    background-color: #e0f0ff;
+    color: #007bff;
+    border-color: #007bff;
+    cursor: pointer;
+}
+
+.header-options {
+    display: flex;
+    gap: 0.8rem;
+}
+
+.alert {
+    padding: 15px 20px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 15px;
+    transition: opacity 0.5s ease;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    color: #842029;
+    border: 1px solid #f5c2c7;
+}
+
+.alert-success {
+    background-color: #d1e7dd;
+    color: #0f5132;
+    border: 1px solid #badbcc;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-form {
+    background-color: #fff;
+    padding: 2rem;
+    width: 100%;
+    max-width: 60%;
+    max-height: 70%;
+    border-radius: 12px;
+    overflow-y: scroll ;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.4rem;
+    color: #222;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+}
+
+.modal-body .form-group {
+    gap: 0.5rem;
+    margin-bottom: 1.2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-body .form-group label {
+    font-size: 0.95rem;
+    color: #444;
+}
+
+.modal-body .form-group input,
+.modal-body .form-group textarea ,
+.modal-body .form-group select{
+    padding: 0.7rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+.form-group-half{
+    display: flex;
+    gap: 1rem;
+}
+
+.form-group-half > div{
+    flex: 1;
+}
+
+.modal-body .form-group textarea{
+    font-family: Arial, sans-serif;
+    resize: none;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1.2rem;
+}
+
+.btn-cancelar {
+    background-color: white;
+    border: 1px solid #ccc;
+    color: #333;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.btn-cancelar:hover {
+    background-color: #f2f2f2;
+}
+
+.btn-crear {
+    background-color: #111;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.btn-crear:hover {
+    background-color: #444;
+}
+
+.pelicula-empty-msg {
+    color: #666666;
+    text-align: center;
+    margin-top: 2.5rem;
+}
+.custom-multiselect {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    background: white;
+    position: relative;
+}
+
+.custom-multiselect select {
+    border: none;
+    outline: none;
+    padding: 5px;
+    background: transparent;
+    flex: 1;
+}
+
+.selected-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.tag {
+    background-color: #f0f0f0;
+    padding: 0.5rem 0.8rem;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+}
+
+.tag button {
+    margin-left: 8px;
+    border: none;
+    background: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.tag button:hover{
+    color: red;
+}
+
+.hidden {
+    display: none;
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/base">
+<head>
+  <link rel="stylesheet" th:href="@{/css/dashboard.css}"/>
+</head>
+<body>
+
+<section layout:fragment="content" class="admin-container">
+  <div class="admin-header">
+    <h1>Panel de Administración</h1>
+    <p>Gestiona el contenido de la wiki de películas</p>
+  </div>
+
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-header">
+        <i class="fa-solid fa-film"></i>
+        <h2>Gestión de Películas</h2>
+      </div>
+      <p>Crear, editar y eliminar películas. Gestionar reparto.</p>
+      <a th:href="@{/admin/peliculas}" class="btn">Gestionar Películas</a>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <i class="fa-solid fa-user-group"></i>
+        <h2>Gestión de Actores</h2>
+      </div>
+      <p>Crear, editar y eliminar actores de la base de datos.</p>
+      <a th:href="@{/admin/actores}" class="btn">Gestionar Actores</a>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <i class="fa-solid fa-user-gear"></i>
+        <h2>Gestión de Usuarios</h2>
+      </div>
+      <p>Habilitar/deshabilitar usuarios y cambiar roles.</p>
+      <a th:href="@{/admin/usuarios}" class="btn">Gestionar Usuarios</a>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <i class="fa-regular fa-star"></i>
+        <h2>Gestión de Críticas</h2>
+      </div>
+      <p>Moderar y eliminar críticas inapropiadas.</p>
+      <a th:href="@{/admin/criticas}" class="btn">Gestionar Críticas</a>
+    </div>
+  </div>
+</section>
+</body>
+</html>
+

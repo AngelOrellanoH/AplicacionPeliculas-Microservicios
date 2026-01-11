@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/base">
+<head>
+    <link rel="stylesheet" th:href="@{/css/actores.css}"/>
+</head>
+<body>
+
+<section layout:fragment="content">
+    <div class="actor-management-container">
+
+        <div class="actor-header">
+            <div class="header-principal">
+                <h1>Gestión de Actores</h1>
+                <span class="actor-count" th:text="${actores.size()} + ' actores'"></span>
+            </div>
+
+            <button class="btn-agregar"><i class="fa-solid fa-plus"></i>Nuevo Actor</button>
+        </div>
+
+        <form class="actor-search-form" method="get" action="/admin/actores">
+            <input type="text" name="q" placeholder="Buscar por nombre o país..." th:value="${query}" />
+            <button type="submit">Buscar</button>
+        </form>
+
+        <div class="alert alert-error" th:if="${mensajeError}" th:text="${mensajeError}"></div>
+        <div class="alert alert-success" th:if="${mensajeExito}" th:text="${mensajeExito}"></div>
+
+        <div th:if="${actores.isEmpty()}">
+            <p class="actor-empty-msg">No se encontraron Actores que coincidan con tu búsqueda.</p>
+        </div>
+
+        <div class="actor-list">
+            <div class="actor-card" th:each="actor : ${actores}">
+                <div class="actor-card-header">
+                    <h3 th:text="${actor.nombre}"></h3>
+                    <div class="header-options">
+                        <button type="button" class="btn-editar" th:attr="data-id=${actor.id},
+                         data-nombre=${actor.nombre},
+                         data-fecha=${actor.fechaNacimiento},
+                         data-pais=${actor.paisNacimiento}">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                            Editar
+                        </button>
+                        <form th:action="@{/actor/eliminar/{id}(id=${actor.id})}" method="post">
+                            <button type="submit" class="btn-delete" title="Eliminar actor">
+                                <i class="fa-solid fa-trash"></i> Eliminar
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+
+                <div class="actor-info">
+                    <p><i class="fa-solid fa-calendar"></i> <span th:text="${actor.fechaNacimiento}"></span></p>
+                    <p><i class="fa-solid fa-location-dot"></i> <span th:text="${actor.paisNacimiento}"></span></p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="modal" class="modal hidden">
+        <form class="modal-form">
+            <input type="hidden" id="actorId" name="id" />
+            <div class="modal-header">
+                <h2>Nuevo Actor</h2>
+                <button type="button" class="modal-close" aria-label="Cerrar"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Ingresa el nombre del actor" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="fechaNacimiento">Fecha de nacimiento</label>
+                    <input type="date" id="fechaNacimiento" name="fechaNacimiento" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="paisNacimiento">País de nacimiento</label>
+                    <input type="text" id="paisNacimiento" name="paisNacimiento" placeholder="Ingresa el país de nacimiento" required />
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn-cancelar">Cancelar</button>
+                <button type="submit" class="btn-crear">Crear</button>
+            </div>
+        </form>
+    </div>
+
+    <script th:src="@{/js/actores.js}"></script>
+
+</section>
+</body>
+</html>

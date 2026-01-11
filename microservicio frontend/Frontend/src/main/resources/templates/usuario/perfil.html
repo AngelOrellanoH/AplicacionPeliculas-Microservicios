@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/base">
+<head>
+    <link rel="stylesheet" th:href="@{/css/perfil.css}"/>
+</head>
+<body>
+
+<section layout:fragment="content">
+    <div class="perfil-container">
+        <h1>Mi Perfil</h1>
+        <p>Bienvenido, <strong th:text="${username}"></strong></p>
+
+        <div class="alert alert-error" th:if="${mensajeError}" th:text="${mensajeError}"></div>
+        <div class="alert alert-success" th:if="${mensajeExito}" th:text="${mensajeExito}"></div>
+
+        <div class="criticas-section">
+            <h2>Mis Críticas (<span th:text="${criticas.size()}"></span>)</h2>
+
+            <div class="critica" th:each="critica : ${criticas}" th:attr="data-critica-id=${critica.id}">
+                <div class="critica-header">
+                    <div class="header-info">
+                        <h3 th:text="${critica.pelicula}"></h3>
+                        <div class="info-details">
+                            <p>
+                                <span class="estrella"><i class="fa-solid fa-star"></i></span>
+                                <span th:text="${critica.nota + '/10'}"></span>
+                            </p>
+                            <span th:text="${critica.fecha}"></span>
+                        </div>
+                    </div>
+                    <div class="header-options">
+                        <button type="button" class="btn-editar" th:attr="data-id=${critica.id}">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </button>
+                        <form th:action="@{/critica/eliminar/{id}(id=${critica.id})}" method="post" class="form-eliminar" style="display:inline;">
+                            <button type="submit" class="btn-eliminar" th:attr="data-id=${critica.id}">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <p class="valoracion-text" th:text="${critica.valoracion}"></p>
+
+
+                <form th:action="@{/critica/editar/{id}(id=${critica.id})}" method="post" class="form-edicion hidden">
+                    <input type="hidden" name="idPelicula" th:value="${critica.idPelicula}" />
+
+                    <div class="edicion-calificacion">
+                        <label>Calificación:</label>
+                        <select name="nota" class="nota-edit" required>
+                            <option value="" disabled>1-10</option>
+                            <option th:each="i : ${#numbers.sequence(1,10)}"
+                                    th:value="${i}"
+                                    th:text="${i}"
+                                    th:selected="${i == critica.nota}">
+                            </option>
+                        </select>
+                    </div>
+                    <textarea name="valoracion" rows="3" th:text="${critica.valoracion}"></textarea>
+                    <div class="edicion-buttons">
+                        <button type="submit">Guardar</button>
+                        <button type="button" class="btn-cancelar" th:attr="data-id=${critica.id}">Cancelar</button>
+                    </div>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+    <script th:src="@{/js/perfil.js}"></script>
+</section>
+</body>
+</html>
+

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/base">
+<head>
+    <link rel="stylesheet" th:href="@{/css/peliculas.css}"/>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="pelicula-management-container">
+
+        <!-- Encabezado -->
+        <div class="pelicula-header">
+            <div class="header-principal">
+                <h1>Gestión de Películas</h1>
+                <span class="pelicula-count" th:text="${peliculas.size()} + ' películas'"></span>
+            </div>
+            <button class="btn-agregar"><i class="fa-solid fa-plus"></i> Nueva Película</button>
+        </div>
+
+        <!-- Buscador -->
+        <form class="pelicula-search-form" method="get" action="/admin/peliculas">
+            <input type="text" name="q" placeholder="Buscar por título, país o actor..." th:value="${query}" />
+            <select name="genero">
+                <option value="" th:selected="${genero == ''}">Todos los géneros</option>
+                <option value="Terror" th:selected="${genero == 'Terror'}">Terror</option>
+                <option value="Accion" th:selected="${genero == 'Accion'}">Accion</option>
+                <option value="Comedia" th:selected="${genero == 'Comedia'}">Comedia</option>
+                <option value="Ciencia Ficcion" th:selected="${genero == 'Ciencia Ficcion'}">Ciencia Ficcion</option>
+                <option value="Romantico" th:selected="${genero == 'Romantico'}">Romantico</option>
+                <option value="Thriller" th:selected="${genero == 'Thriller'}">Thriller</option>
+            </select>
+            <button type="submit">Buscar</button>
+        </form>
+
+        <!-- Alertas -->
+        <div class="alert alert-error" th:if="${mensajeError}" th:text="${mensajeError}"></div>
+        <div class="alert alert-success" th:if="${mensajeExito}" th:text="${mensajeExito}"></div>
+
+        <!-- Lista -->
+        <div th:if="${peliculas.isEmpty()}">
+            <p class="pelicula-empty-msg">No se encontraron películas.</p>
+        </div>
+
+        <div class="pelicula-list">
+            <div class="pelicula-card" th:each="pelicula : ${peliculas}">
+                <div class="pelicula-card-header">
+                    <div class="card-header-title">
+                        <h3 th:text="${pelicula.titulo}"></h3>
+                        <p class="pelicula-count" th:text="${pelicula.genero}"></p>
+                    </div>
+                    <div class="header-options">
+                        <button type="button" class="btn-editar"
+                                th:attr="data-id=${pelicula.id},
+                                         data-titulo=${pelicula.titulo},
+                                         data-anio=${pelicula.anio},
+                                         data-duracion=${pelicula.duracion},
+                                         data-pais=${pelicula.pais},
+                                         data-direccion=${pelicula.direccion},
+                                         data-genero=${pelicula.genero},
+                                         data-sinopsis=${pelicula.sinopsis},
+                                         data-imagen=${pelicula.imagenPortada}">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                            Editar
+                        </button>
+                        <form th:action="@{/pelicula/eliminar/{id}(id=${pelicula.id})}" method="post">
+                            <button type="submit" class="btn-delete"><i class="fa-solid fa-trash"></i> Eliminar</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="pelicula-info">
+                    <p><strong>Año:</strong> <span th:text="${pelicula.anio}"></span></p>
+                    <p><strong>Duración:</strong> <span th:text="${pelicula.duracion + ' min'}"></span></p>
+                    <p><strong>Dirección:</strong> <span th:text="${pelicula.direccion}"></span></p>
+                    <p><strong>País:</strong> <span th:text="${pelicula.pais}"></span></p>
+                    <p th:if="${!pelicula.actores.isEmpty()}"><strong>Reparto:</strong>
+                        <span th:each="a, iStat : ${pelicula.actores}"
+                              th:text="${a.nombre + (iStat.last ? '' : ', ')}"></span>
+                    </p>
+                    <p th:text="${pelicula.sinopsis}"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL FORMULARIO -->
+        <div id="modal" class="modal hidden">
+            <form class="modal-form">
+                <input type="hidden" id="peliculaId" />
+                <div class="modal-header">
+                    <h2>Nueva Película</h2>
+                    <button type="button" class="modal-close"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Título</label>
+                        <input type="text" id="titulo" required>
+                    </div>
+                    <div class="form-group-half">
+                        <div class="form-group">
+                            <label>Año</label>
+                            <input type="number" id="anio" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Duración (min)</label>
+                            <input type="number" id="duracion" required>
+                        </div>
+                    </div>
+                    <div class="form-group-half">
+                        <div class="form-group">
+                            <label>Género</label>
+                            <select id="genero" required>
+                                <option value="">Seleccione género</option>
+                                <option value="Terror">Terror</option>
+                                <option value="Accion">Accion</option>
+                                <option value="Comedia">Comedia</option>
+                                <option value="Ciencia Ficcion">Ciencia Ficcion</option>
+                                <option value="Romantico">Romantico</option>
+                                <option value="Thriller">Thriller</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>País</label>
+                            <input type="text" id="pais" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Dirección</label>
+                        <input type="text" id="direccion" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Sinopsis</label>
+                        <textarea id="sinopsis" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Imagen (url)</label>
+                        <input type="text" id="imagenPortada" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Reparto</label>
+                        <select id="actores-select">
+                            <option value="" disabled selected>Seleccione actores...</option>
+                            <option th:each="actor : ${actores}" th:value="${actor.id}" th:text="${actor.nombre}"></option>
+                        </select>
+                        <div class="custom-multiselect" id="selector-actores">
+                            <div class="selected-tags" id="tags-container"></div>
+                        </div>
+                        <input type="hidden" name="actoresIds" id="actores-hidden">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-cancelar">Cancelar</button>
+                    <button type="submit" class="btn-crear">Guardar</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+    <script th:src="@{/js/peliculas.js}"></script>
+</section>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/base">
+
+<section layout:fragment="content">
+    <link rel="stylesheet" th:href="@{/css/home.css}"/>
+
+    <div class="home-container">
+        <h1>Wiki de Películas</h1>
+        <p class="subtitulo">Descubre y explora tus películas favoritas</p>
+
+        <form method="get" th:action="@{/}">
+            <div class="filtros">
+                <input type="text" name="query" th:value="${query}" placeholder="Buscar por título, pais o actor...">
+                <select name="genero" >
+                    <option value="" th:selected="${genero == ''}">Todos los géneros</option>
+                    <option value="Terror" th:selected="${genero == 'Terror'}">Terror</option>
+                    <option value="Accion" th:selected="${genero == 'Accion'}">Accion</option>
+                    <option value="Comedia" th:selected="${genero == 'Comedia'}">Comedia</option>
+                    <option value="Ciencia Ficcion" th:selected="${genero == 'Ciencia Ficcion'}">Ciencia Ficcion</option>
+                    <option value="Romantico" th:selected="${genero == 'Romantico'}">Romantico</option>
+                    <option value="Thriller" th:selected="${genero == 'Thriller'}">Thriller</option>
+                </select>
+                <button type="submit">Buscar</button>
+            </div>
+        </form>
+
+        <div th:if="${peliculas.isEmpty()}">
+            <p class="noFound">No se encontraron películas que coincidan con tu búsqueda.</p>
+        </div>
+
+        <div class="peliculas-grid">
+            <div th:each="p : ${peliculas}">
+                <a class="card" th:href="@{'/pelicula/' + ${p.pelicula.id}}">
+                    <div class="card-header">
+                        <h3 th:text="${p.pelicula.titulo}"></h3>
+                        <span class="info">
+                            <span class="info-detail">
+                                <i class="fa-solid fa-calendar-days"></i><span th:text="${p.pelicula.anio}"></span>
+                            </span>
+                            <span class="info-detail">
+                                <i class="fa-solid fa-clock"></i><span th:text="${p.pelicula.duracion + ' min'}"></span>
+                            </span>
+                            <span class="info-detail">
+                                <i class="fa-solid fa-location-dot"></i><span th:text="${p.pelicula.pais}"></span>
+                            </span>
+                        </span>
+                    </div>
+                    <div class="card-img">
+                        <img th:src="${p.pelicula.imagenPortada}" alt="Imagen no disponible">
+                    </div>
+                    <div class="card-body">
+                        <span class="genero" th:text="${p.pelicula.genero}"></span>
+                        <p class="nota">
+                            <i class="fa-solid fa-star estrella"></i>
+                            <span th:text="${p.resumen.notaMedia}" class="promedio">0.0</span>
+                            (<span th:text="${p.resumen.cantidadCriticas}"></span> críticas)
+                        </p>
+                        <p class="sinopsis" th:text="${p.pelicula.sinopsis}"></p>
+                        <p><strong>Director:</strong> <span th:text="${p.pelicula.direccion}"></span></p>
+                        <p><strong>Reparto:</strong>
+                            <span th:each="a, iStat : ${p.pelicula.actores}"
+                                  th:text="${a.nombre + (iStat.last ? '' : ', ')}"></span>
+                        </p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+</html>
